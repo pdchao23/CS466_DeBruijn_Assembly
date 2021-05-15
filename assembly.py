@@ -30,8 +30,8 @@ def createGraph(sequences):
             d[l] = list()
         if r not in d:
             d[r] = list()
-        if last_right != l and counter != 0:
-            d[last_right].append(l)
+        # if last_right != l and counter != 0:
+        #     d[last_right].append(l)
 
         d[l].append(r)
         last_right = r
@@ -57,6 +57,8 @@ def eulerianPath(graph, d):
     # check connected
     # in degree and out degree are the same
     # 0 or 2 semibalanced nodes
+    # if not nx.has_eulerian_path(graph):
+    #     return "-1"
 
     temp = graph.to_undirected()
     if not nx.is_connected(temp):
@@ -66,16 +68,18 @@ def eulerianPath(graph, d):
     num_semi_nodes = 0
     nodes = list(graph.nodes)
 
+    start_node = nodes[0]
     for n in nodes:
         if abs(graph.out_degree(n) - graph.in_degree(n)) == 1:
             num_semi_nodes += 1
         elif abs(graph.out_degree(n) - graph.in_degree(n)) > 1:
             return "-1"
+        if graph.in_degree(n) == 0:
+            start_node = n
 
     if not (num_semi_nodes == 0 or num_semi_nodes == 2):
         return "-1"
 
-    start_node = nodes[0]
     curr_path = [start_node]
 
     circuit = []
