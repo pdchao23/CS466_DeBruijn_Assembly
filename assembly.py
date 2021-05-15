@@ -2,7 +2,6 @@
 import argparse
 import sys
 import networkx as nx
-import matplotlib.pyplot as plt
 
 
 def readFile():
@@ -47,7 +46,6 @@ def createGraph(sequences):
             graph.add_edge(key, e)
 
     # nx.draw(graph, with_labels=True)
-
     # plt.savefig("graph.png")
     return graph, d
 
